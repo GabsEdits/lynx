@@ -44,7 +44,7 @@ export const handler: Handlers = {
     await saveLinksToFile(links);
 
     return new Response(
-      JSON.stringify({ shortUrl: `http://localhost:8000/${newId}` }),
+      JSON.stringify({ shortUrl: `https://lynx.gxbs.dev/${newId}` }),
       { headers: { "Content-Type": "application/json" } },
     );
   },

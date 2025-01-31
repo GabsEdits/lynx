@@ -48,7 +48,7 @@ The API will automatically start, when you run the following command:
 deno task start
 ```
 
-The API will be available at `http://localhost:8000`.
+The API will be available at `https://lynx.gxbs.dev`.
 
 ## Web App
 

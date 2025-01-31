@@ -23,7 +23,7 @@ export default function Welcome() {
     if (inputElement && inputElement.value) {
       const originalUrl = inputElement.value;
       try {
-        const response = await fetch("http://localhost:8000/api/create", {
+        const response = await fetch("https://lynx.gxbs.dev/api/create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -80,8 +80,8 @@ export default function Welcome() {
         ? (
           <>
             <div class="flex flex-col gap-4 items-center justify-center p-4">
-              <h1 class="flex flex-col font-serif text-4xl items-center justify-center">
-                <span class="text-lg text-center font-serif italic">
+              <h1 class="flex flex-col font-serif text-4xl items-center justify-center text-center">
+                <span class="text-lg font-serif italic">
                   Lynx
                 </span>
                 My Short Links
@@ -90,17 +90,17 @@ export default function Welcome() {
                 {shortLinks.map((link) => (
                   <div class="p-7 flex flex-col gap-2 bg-white dark:bg-zinc-900 rounded-xl shadow-md w-full">
                     <a
-                      class="text-2xl font-bold hover:underline hover:text-black dark:hover:text-white no-underline text-black dark:text-white"
+                      class="text-2xl font-bold hover:underline hover:text-black dark:hover:text-white no-underline text-black dark:text-white break-all"
                       href={link.shortUrl}
                     >
                       {link.shortUrl}
                     </a>
-                    <div class="w-full flex flex-row gap-2 mt-4 items-center justify-between">
-                      <div class="flex flex-row gap-2">
+                    <div class="w-full flex flex-col md:flex-row gap-2 mt-4 items-center justify-between">
+                      <div class="flex flex-col md:flex-row gap-2">
                         <p class="text-base bg-green-200 text-green-50 dark:bg-green-500 dark:text-green-950 rounded-lg py-2 px-4 w-max">
                           Live
                         </p>
-                        <p class="text-base bg-zinc-400 dark:bg-zinc-700 rounded-lg py-2 px-4 w-max p-2">
+                        <p class="text-base bg-zinc-400 dark:bg-zinc-700 rounded-lg py-2 px-4 w-max p-2 break-all">
                           Goes to: {link.originalUrl}
                         </p>
                       </div>
@@ -131,7 +131,7 @@ export default function Welcome() {
         )
         : (
           <>
-            <h1 class="flex flex-col font-serif text-4xl items-center justify-center">
+            <h1 class="flex flex-col font-serif text-4xl items-center justify-center text-center">
               Welcome to
               <span class="italic text-6xl">Lynx</span>
               <span class="text-base">A simple url shortener</span>
@@ -144,7 +144,7 @@ export default function Welcome() {
                 type="url"
                 placeholder="URL"
               />
-              <div class="w-full flex flex-row items-center justify-end gap-2">
+              <div class="w-full flex flex-col md:flex-row items-center justify-end gap-2">
                 <button
                   class="px-6 py-3 rounded-lg bg-zinc-100 dark:bg-zinc-900"
                   onClick={handleSampleLink}
@@ -177,7 +177,7 @@ export default function Welcome() {
               type="url"
               placeholder="URL"
             />
-            <div class="flex justify-end gap-2">
+            <div class="flex flex-col md:flex-row justify-end gap-2">
               <button
                 class="px-6 py-3 rounded-lg bg-zinc-100 dark:bg-zinc-800"
                 onClick={handlePopupSampleLink}

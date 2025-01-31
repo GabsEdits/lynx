@@ -45,7 +45,7 @@ export const handler: Handlers = {
 
     return new Response(
       JSON.stringify({
-        shortUrl: `http://localhost:8000/${newId}`,
+        shortUrl: `https://lynx.gxbs.dev/${newId}`,
         originalUrl: newLink.originalUrl,
       }),
       { headers: { "Content-Type": "application/json" } },

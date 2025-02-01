@@ -6,7 +6,6 @@ import * as $_id_ from "./routes/[id].ts";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_create from "./routes/api/create.ts";
-import * as $api_view from "./routes/api/view.ts";
 import * as $index from "./routes/index.tsx";
 import * as $Welcome from "./islands/Welcome.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -17,7 +16,6 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/api/create.ts": $api_create,
-    "./routes/api/view.ts": $api_view,
     "./routes/index.tsx": $index,
   },
   islands: {

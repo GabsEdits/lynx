@@ -97,16 +97,16 @@ export default function Welcome() {
                     </a>
                     <div class="w-full flex flex-col md:flex-row gap-2 mt-4 items-center justify-between">
                       <div class="flex flex-col md:flex-row gap-2">
-                        <p class="text-base bg-green-200 text-green-50 dark:bg-green-500 dark:text-green-950 rounded-lg py-2 px-4 w-max">
+                        <p class="text-base bg-green-200 text-green-900 dark:bg-green-500 dark:text-green-950 rounded-lg py-2 px-4 w-max">
                           Live
                         </p>
-                        <p class="text-base bg-zinc-400 dark:bg-zinc-700 rounded-lg py-2 px-4 w-max p-2 break-all">
+                        <p class="text-base bg-zinc-200 dark:bg-zinc-700 rounded-lg py-2 px-4 w-max p-2 break-all">
                           Goes to: {link.originalUrl}
                         </p>
                       </div>
                       <div class="flex flex-row gap-2">
                         <button
-                          class="text-base bg-red-200 text-red-50 dark:bg-red-500 dark:text-red-950 rounded-lg py-2 px-4 w-max"
+                          class="text-base bg-red-200 text-red-900 dark:bg-red-500 dark:text-red-950 rounded-lg py-2 px-4 w-max"
                           onClick={() => handleRemove(link.shortUrl)}
                         >
                           Remove

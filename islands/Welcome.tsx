@@ -95,8 +95,8 @@ export default function Welcome() {
                     >
                       {link.shortUrl}
                     </a>
-                    <div class="w-full flex flex-col md:flex-row gap-2 mt-4 items-center justify-between">
-                      <div class="flex flex-col md:flex-row gap-2">
+                    <div class="w-full flex lg:flex-row sm:flex-col gap-2 mt-4 items-center justify-between">
+                      <div class="flex flex-row sm:flex-col gap-2">
                         <p class="text-base bg-green-200 text-green-900 dark:bg-green-500 dark:text-green-950 rounded-lg py-2 px-4 w-max">
                           Live
                         </p>

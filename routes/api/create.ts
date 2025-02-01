@@ -38,7 +38,7 @@ export const handler: Handlers = {
       if (!originalUrl) {
         return new Response(
           JSON.stringify({ error: "Original URL is required" }),
-          { status: 400, headers: { "Content-Type": "application/json" } },
+          { status: 400, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
         );
       }
 
@@ -52,12 +52,12 @@ export const handler: Handlers = {
           shortUrl: `https://lynx.gxbs.dev/${newId}`,
           originalUrl: newLink.originalUrl,
         }),
-        { headers: { "Content-Type": "application/json" } },
+        { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
       );
     } catch (_error) {
       return new Response(
         JSON.stringify({ error: "Internal Server Error" }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
+        { status: 500, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
       );
     }
   },
@@ -68,7 +68,7 @@ export const handler: Handlers = {
     if (!id) {
       return new Response(
         JSON.stringify({ error: "ID is required" }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+        { status: 400, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
       );
     }
 
@@ -77,7 +77,7 @@ export const handler: Handlers = {
     if (!links[id]) {
       return new Response(
         JSON.stringify({ error: "Link not found" }),
-        { status: 404, headers: { "Content-Type": "application/json" } },
+        { status: 404, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
       );
     }
 
@@ -85,10 +85,10 @@ export const handler: Handlers = {
 
     return new Response(
       JSON.stringify({ message: "Link deleted successfully" }),
-      { headers: { "Content-Type": "application/json" } },
+      { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } },
     );
   },
   GET() {
-    return new Response("Method Not Allowed", { status: 405 });
+    return new Response("Method Not Allowed", { status: 405, headers: { "Access-Control-Allow-Origin": "*" } });
   },
 };

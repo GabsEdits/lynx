@@ -1,7 +1,8 @@
-import { Handlers } from "$fresh/server.ts";
-import { readJsonFile } from "../utils.ts";
+/// <reference lib="deno.unstable" />
 
-const filePath = "./links.json";
+import { Handlers } from "$fresh/server.ts";
+
+const kv = await Deno.openKv();
 
 export const handler = async (req: Request, ctx: Handlers) => {
   const { id } = ctx.params;
@@ -10,10 +11,10 @@ export const handler = async (req: Request, ctx: Handlers) => {
     return new Response("Not Found", { status: 404 });
   }
 
-  const links = await readJsonFile(filePath);
+  const link = await kv.get(["links", id]);
 
-  if (links && links[id]) {
-    return Response.redirect(links[id].originalUrl, 302);
+  if (link && link.value) {
+    return Response.redirect(link.value.originalUrl, 302);
   } else {
     return new Response("Link not found", { status: 404 });
   }

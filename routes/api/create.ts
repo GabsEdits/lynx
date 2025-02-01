@@ -1,25 +1,31 @@
+/// <reference lib="deno.unstable" />
 import { Handlers } from "$fresh/server.ts";
 import { nanoid } from "npm:nanoid";
-import { readJsonFile, writeJsonFile } from "../../utils.ts";
 
 interface Link {
   id: string;
   originalUrl: string;
 }
 
-const filePath = "./links.json";
+const kv = await Deno.openKv();
 
 async function readLinks(): Promise<Record<string, Link>> {
-  try {
-    const data = await readJsonFile(filePath);
-    return data || {};
-  } catch (_e) {
-    return {};
+  const entries = kv.list<Link>({ prefix: ["links"] });
+  const links: Record<string, Link> = {};
+
+  for await (const entry of entries) {
+    links[entry.key[1] as string] = entry.value;
   }
+
+  return links;
 }
 
-async function saveLinks(links: Record<string, Link>): Promise<void> {
-  await writeJsonFile(filePath, links);
+async function saveLink(id: string, link: Link): Promise<void> {
+  await kv.set(["links", id], link);
+}
+
+async function deleteLink(id: string): Promise<void> {
+  await kv.delete(["links", id]);
 }
 
 export const handler: Handlers = {
@@ -38,11 +44,7 @@ export const handler: Handlers = {
       const newId = nanoid(4);
       const newLink: Link = { id: newId, originalUrl };
 
-      const links = await readLinks();
-
-      links[newId] = newLink;
-
-      await saveLinks(links);
+      await saveLink(newId, newLink);
 
       return new Response(
         JSON.stringify({
@@ -51,7 +53,7 @@ export const handler: Handlers = {
         }),
         { headers: { "Content-Type": "application/json" } },
       );
-    } catch (error) {
+    } catch (_error) {
       return new Response(
         JSON.stringify({ error: "Internal Server Error" }),
         { status: 500, headers: { "Content-Type": "application/json" } },
@@ -78,9 +80,7 @@ export const handler: Handlers = {
       );
     }
 
-    delete links[id];
-
-    await saveLinks(links);
+    await deleteLink(id);
 
     return new Response(
       JSON.stringify({ message: "Link deleted successfully" }),

@@ -24,32 +24,39 @@ async function saveLinks(links: Record<string, Link>): Promise<void> {
 
 export const handler: Handlers = {
   async POST(req: Request) {
-    const body = await req.json();
-    const { originalUrl } = body;
+    try {
+      const body = await req.json();
+      const { originalUrl } = body;
 
-    if (!originalUrl) {
+      if (!originalUrl) {
+        return new Response(
+          JSON.stringify({ error: "Original URL is required" }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
+
+      const newId = nanoid(4);
+      const newLink: Link = { id: newId, originalUrl };
+
+      const links = await readLinks();
+
+      links[newId] = newLink;
+
+      await saveLinks(links);
+
       return new Response(
-        JSON.stringify({ error: "Original URL is required" }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+        JSON.stringify({
+          shortUrl: `https://lynx.gxbs.dev/${newId}`,
+          originalUrl: newLink.originalUrl,
+        }),
+        { headers: { "Content-Type": "application/json" } },
+      );
+    } catch (error) {
+      return new Response(
+        JSON.stringify({ error: "Internal Server Error" }),
+        { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
-
-    const newId = nanoid(4);
-    const newLink: Link = { id: newId, originalUrl };
-
-    const links = await readLinks();
-
-    links[newId] = newLink;
-
-    await saveLinks(links);
-
-    return new Response(
-      JSON.stringify({
-        shortUrl: `https://lynx.gxbs.dev/${newId}`,
-        originalUrl: newLink.originalUrl,
-      }),
-      { headers: { "Content-Type": "application/json" } },
-    );
   },
   async DELETE(req: Request) {
     const url = new URL(req.url);

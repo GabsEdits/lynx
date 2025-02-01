@@ -7,7 +7,7 @@ interface Link {
   originalUrl: string;
 }
 
-const kv = await Deno.openKv();
+const kv = await Deno.openKv("https://api.deno.com/databases/086fcc69-2996-494a-9ebc-963085893ad7/connect");
 
 async function readLinks(): Promise<Record<string, Link>> {
   const entries = kv.list<Link>({ prefix: ["links"] });

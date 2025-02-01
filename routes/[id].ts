@@ -2,7 +2,7 @@
 
 import { Handlers } from "$fresh/server.ts";
 
-const kv = await Deno.openKv();
+const kv = await Deno.openKv("https://api.deno.com/databases/086fcc69-2996-494a-9ebc-963085893ad7/connect");
 
 export const handler = async (req: Request, ctx: Handlers) => {
   const { id } = ctx.params;
